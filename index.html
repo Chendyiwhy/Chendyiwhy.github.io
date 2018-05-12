@@ -31,6 +31,7 @@
         
     //媒体对象
     navigator.getMedia = navigator.getUserMedia ||
+                          navigator.mediaDevices.getUserMedia ||
                          navagator.webkitGetUserMedia ||
                          navigator.mozGetUserMedia ||
                          navigator.msGetUserMedia;
