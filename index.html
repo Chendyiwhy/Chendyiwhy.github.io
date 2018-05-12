@@ -1,204 +1,50 @@
 <!DOCTYPE html>
-<html lang="ZH-CN">
+<html>
 <head>
   <meta charset="utf-8">
-  <title>web RTC 测试</title>
-  <style>
-  .booth {
-    width:400px;
-
-    background:#ccc;
-    border: 10px solid #ddd;
-    margin: 0 auto;
-  }
+  <title>HTML5 调用手机摄像头</title>
+  <style type="text/css">
 </style>
+<script>     
+  window.addEventListener("DOMContentLoaded", function() {
+    var canvas = document.getElementById("canvas"),
+    context = canvas.getContext("2d"),
+    video = document.getElementById("video"),
+    videoObj = { "video": true },
+    errBack = function(error) {
+      console.log("Video capture error: ", error.code); 
+    };
+
+
+if(navigator.getUserMedia) { // Standard
+  navigator.getUserMedia(videoObj, function(stream) {
+    video.src = stream;
+    video.play();
+  }, errBack);
+} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+  navigator.webkitGetUserMedia(videoObj, function(stream){
+    video.src = window.webkitURL.createObjectURL(stream);
+    video.play();
+  }, errBack);
+}
+else if(navigator.mozGetUserMedia) { // Firefox-prefixed
+  navigator.mozGetUserMedia(videoObj, function(stream){
+    video.src = window.URL.createObjectURL(stream);
+    video.play();
+  }, errBack);
+}
+// 拍照
+document.getElementById("snap").addEventListener("click", function() {
+  context.drawImage(video, 0, 0, 640, 480);
+});
+}, false);
+
+
+</script> 
 </head>
 <body>
-  <div class="booth">
-
-    <video id="video" width="400" height="300"></video>
-    <button id='tack'> snap shot</button>
-    <canvas id='canvas' width='400' height='300'></canvas>
-    <img id='img' src=''>
-  </div>
-
-
-  <script>
-
-    var onError = function(error){
-          alert('Webcam Error\nName: '+error.name + '\nMessage: '+error.message);
-        }
-
-        var domElement = document.createElement('video');
-        domElement.setAttribute('autoplay', '');
-        domElement.setAttribute('muted', '');
-        domElement.setAttribute('playsinline', '');
-        domElement.style.width = document.documentElement.clientWidth + 'px';
-        domElement.style.height = document.documentElement.clientHeight + 'px';
-
-        // check API is available
-        if(navigator.mediaDevices === undefined || navigator.mediaDevices.enumerateDevices === undefined || navigator.mediaDevices.getUserMedia === undefined){
-          if(navigator.mediaDevices === undefined){
-            var fctName = 'navigator.mediaDevices';
-          }
-          else if(navigator.mediaDevices.enumerateDevices === undefined){
-            var fctName = 'navigator.mediaDevices.enumerateDevices';
-          }
-          else if(navigator.mediaDevices.getUserMedia === undefined){
-            var fctName = 'navigator.mediaDevices.getUserMedia';
-          }
-          else{
-            console.assert(false);
-          }
-          onError({
-            name: '',
-            message: 'WebRTC issue-! '+fctName+' not present in your browser'
-          });
-          return null;
-        }
-
-        // get available devices
-        navigator.mediaDevices.enumerateDevices().then(function(devices){
-
-          var userMediaConstraints = {
-            audio: false,
-            video: {
-              facingMode: 'environment',
-            }
-          }
-
-            // get a device which satisfy the constraints
-            navigator.mediaDevices.getUserMedia(userMediaConstraints).then(function success(stream){
-              domElement.srcObject = stream;
-              document.body.addEventListener('click', function(){
-                domElement.play();
-              });
-                // wait until the video stream is ready
-                var interval = setInterval(function(){
-                  if(!domElement.videoWidth){
-                    return;
-                  }
-                  stage.appendChild(domElement);
-                  clearInterval(interval);
-                }, 1000/50);
-              }).catch(function(error){
-                onError({
-                  name: error.name,
-                  message: error.message
-                });
-              });
-            }).catch(function(error){
-              onError({
-                message: error.message
-              });
-            });
-
-
-    // function initSourceWebcam(){
-    //     // init default value
-    //     var onError = function(error){
-    //       alert('Webcam Error\nName: '+error.name + '\nMessage: '+error.message);
-    //     }
-
-    //     var domElement = document.createElement('video');
-    //     domElement.setAttribute('autoplay', '');
-    //     domElement.setAttribute('muted', '');
-    //     domElement.setAttribute('playsinline', '');
-    //     domElement.style.width = document.documentElement.clientWidth + 'px';
-    //     domElement.style.height = document.documentElement.clientHeight + 'px';
-
-    //     // check API is available
-    //     if(navigator.mediaDevices === undefined || navigator.mediaDevices.enumerateDevices === undefined || navigator.mediaDevices.getUserMedia === undefined){
-    //       if(navigator.mediaDevices === undefined){
-    //         var fctName = 'navigator.mediaDevices';
-    //       }
-    //       else if(navigator.mediaDevices.enumerateDevices === undefined){
-    //         var fctName = 'navigator.mediaDevices.enumerateDevices';
-    //       }
-    //       else if(navigator.mediaDevices.getUserMedia === undefined){
-    //         var fctName = 'navigator.mediaDevices.getUserMedia';
-    //       }
-    //       else{
-    //         console.assert(false);
-    //       }
-    //       onError({
-    //         name: '',
-    //         message: 'WebRTC issue-! '+fctName+' not present in your browser'
-    //       });
-    //       return null;
-    //     }
-
-    //     // get available devices
-    //     navigator.mediaDevices.enumerateDevices().then(function(devices){
-
-    //       var userMediaConstraints = {
-    //         audio: false,
-    //         video: {
-    //           facingMode: 'environment',
-    //         }
-    //       }
-
-    //         // get a device which satisfy the constraints
-    //         navigator.mediaDevices.getUserMedia(userMediaConstraints).then(function success(stream){
-    //           domElement.srcObject = stream;
-    //           document.body.addEventListener('click', function(){
-    //             domElement.play();
-    //           });
-    //             // wait until the video stream is ready
-    //             var interval = setInterval(function(){
-    //               if(!domElement.videoWidth){
-    //                 return;
-    //               }
-    //               stage.appendChild(domElement);
-    //               clearInterval(interval);
-    //             }, 1000/50);
-    //           }).catch(function(error){
-    //             onError({
-    //               name: error.name,
-    //               message: error.message
-    //             });
-    //           });
-    //         }).catch(function(error){
-    //           onError({
-    //             message: error.message
-    //           });
-    //         });
-
-    //         return domElement;
-    //       }
-
-    // var video = document.getElementById('video'),
-    //     canvas = document.getElementById('canvas'),
-    //     snap = document.getElementById('tack'),
-    //     img = document.getElementById('img'),
-    //     vendorUrl = window.URL || window.webkitURL;
-
-    // //媒体对象
-    // navigator.getMedia = navigator.getUserMedia ||
-    //                      navagator.webkitGetUserMedia ||
-    //                      navigator.mozGetUserMedia ||
-    //                      navigator.msGetUserMedia;
-    // navigator.getMedia({
-    //     video: true, //使用摄像头对象
-    //     audio: false  //不适用音频
-    // }, function(strem){
-    //     console.log(strem);
-    //     video.src = vendorUrl.createObjectURL(strem);
-    //     video.play();
-    // }, function(error) {
-    //     //error.code
-    //     console.log(error);
-    //     alert(error);
-    // });
-    // snap.addEventListener('click', function(){
-
-    //     //绘制canvas图形
-    //     canvas.getContext('2d').drawImage(video, 0, 0, 400, 300);
-
-    //     //把canvas图像转为img图片
-    //     img.src = canvas.toDataURL("image/png");
-
-    // })
-  </script>
+  <video id="video" width="640" height="480" autoplay></video>
+  <button id="snap" style="font-size: 40px;" >拍照</button>
+  <canvas id="canvas" width="640" height="640"></canvas>
 </body>
 </html>
