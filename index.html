@@ -1,67 +1,45 @@
 <!DOCTYPE html>
-<html lang="ZH-CN">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>web RTC 测试</title>
-  <style>
-  .booth {
-    width:400px;
-
-    background:#ccc;
-    border: 10px solid #ddd;
-    margin: 0 auto;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>web调取摄像头</title>
 </head>
 <body>
-  <div class="booth">
-    <input type="file" name="file" accept="image/*" >
-
-  </div>
-
-
+  <video src=""></video>
   <script>
-
-    function drawOnCanvas(file) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var dataURL = e.target.result,
-        canvas = document.querySelector('canvas'),
-        ctx = canvas.getContext('2d'),
-        img = new Image();
-        img.onload = function() {
-          var square = 320;
-          canvas.width = square;
-          canvas.height = square;
-          var context = canvas.getContext('2d');
-          context.clearRect(0, 0, square, square);
-          var imageWidth;
-          var imageHeight;
-          var offsetX = 0;
-          var offsetY = 0;
-          if (this.width > this.height) {
-            imageWidth = Math.round(square * this.width / this.height);
-            imageHeight = square;
-            offsetX = -Math.round((imageWidth - square) / 2);
-          } else {
-            imageHeight = Math.round(square * this.height / this.width);
-            imageWidth = square;
-            offsetY = -Math.round((imageHeight - square) / 2);
-          }
-          context.drawImage(this, offsetX, offsetY, imageWidth, imageHeight);
-          var base64 = canvas.toDataURL('image/jpeg', 0.5);
-          $('#j_thumb').val(base64.substr(22));
-        };
-        img.src = dataURL;
-      };
-      reader.readAsDataURL(file);
+    if (navigator.mediaDevices === undefined) {
+      navigator.mediaDevices = {};
+    }
+    if (navigator.mediaDevices.getUserMedia === undefined) {
+      navigator.mediaDevices.getUserMedia = function(constraints) {
+        var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        if (!getUserMedia) {
+          return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+        }
+        return new Promise(function(resolve, reject) {
+          getUserMedia.call(navigator, constraints, resolve, reject);
+        });
+      }
+    }
+    window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
+    var mediaOpts = {
+      audio: false,
+      video: true,
+    }
+    function successFunc(stream) {
+      var video = document.querySelector('video');
+      if ("srcObject" in video) {
+        video.srcObject = stream
+      } else {
+        video.src = window.URL && window.URL.createObjectURL(stream) || stream
+      }
+      video.play();
+    }
+    function errorFunc(err) {
+      alert(err.name);
     }
 
-    document.querySelector('input[type=file]').onchange = function() {
-      var file = input.files[0];
-      drawOnCanvas(file);
-    };
-
+    navigator.getUserMedia(mediaOpts, successFunc, errorFunc);
   </script>
 </body>
 </html>
