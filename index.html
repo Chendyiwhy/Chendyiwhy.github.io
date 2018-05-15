@@ -18,6 +18,9 @@
         <div>
           <img id="blah" src="#" alt="显示您上传的商品图片" />
         </div>  
+
+         <textarea id="base64_code" rows="30" cols="360"></textarea>
+
       </form>
 
       <div>
@@ -86,11 +89,14 @@
       });
     });*/
 
+    var base64_code=document.getElementById("base64_code");
+
     function readURL(input) {
      if (input.files && input.files[0]) {
        var reader = new FileReader();
        reader.onload = function (e) {
          $('#blah').attr('src', e.target.result);
+         base64_code.innerHTML= e.target.result;
        }
        reader.readAsDataURL(input.files[0]);
      }
