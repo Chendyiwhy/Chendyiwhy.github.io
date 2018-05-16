@@ -2,16 +2,26 @@
 <html>  
 <head>  
   <title>上传图片</title>  
-  <meta charset="utf-8">  
+  <meta charset="utf-8">
+  <style type="text/css">
+  img {
+    width: 100%;
+    height: auto;
+  }
+  #imgInp {
+    width: 100%;
+    height: 100px;
+    background-color: orange;
+    text-align: center;
+
+  }
+</style>  
 </head>  
 <body>  
   <iframe name="uploadfrm" id="uploadfrm" style="display: none;"></iframe>  
   <form name="formHead" method="post" action="" id="formHead" enctype="multipart/form-data" target="uploadfrm">  
 
-    <div>  
-      <div>  
-        <!-- <input type="file" name="file_head" id="file_head" onchange="javascript:setImagePreview();" />   -->
-      </div>  
+    <div> 
 
       <form id="form1" runat="server">
         <input type='file' id="imgInp" />
@@ -19,17 +29,226 @@
           <img id="blah" src="#" alt="显示您上传的商品图片" />
         </div>  
 
-         <textarea id="base64_code" rows="30" cols="360"></textarea>
-
+        <div>
+          <img id="face" src="#" alt="融合后的照片" />
+        </div>  
       </form>
 
-      <div>
-        <button>提交</button>
-      </div>
       <div>  
-        <div id="DivUp" style="display: none">  
-          <input type="submit" data-inline="true" id="BtnUp" value="确认上传" data-mini="true" />  
-        </div>  
+        <table>
+          <thead>
+            <tr>
+              <th>model</th>
+              <th>名称</th>
+              <th>素材图</th>
+              <th>model</th>
+              <th>名称</th>
+              <th>素材图</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>奇迹</td>
+              <td><img onclick="selectedModel(1)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/1.png" alt="奇迹              "></td>
+              <td>2</td>
+              <td>压岁钱</td>
+              <td><img onclick="selectedModel(2)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/2.png" alt="压岁钱            "></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>范蠡</td>
+              <td><img onclick="selectedModel(3)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/3.png" alt="范蠡              "></td>
+              <td>4</td>
+              <td>李白</td>
+              <td><img onclick="selectedModel(4)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/4.png" alt="李白              "></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>孙尚香</td>
+              <td><img onclick="selectedModel(5)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/5.png" alt="孙尚香            "></td>
+              <td>6</td>
+              <td>花无缺</td>
+              <td><img onclick="selectedModel(6)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/6.png" alt="花无缺            "></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>西施</td>
+              <td><img onclick="selectedModel(7)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/7.png" alt="西施              "></td>
+              <td>8</td>
+              <td>杨玉环</td>
+              <td><img onclick="selectedModel(8)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/8.png" alt="杨玉环            "></td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>白浅</td>
+              <td><img onclick="selectedModel(9)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/9.png" alt="白浅              "></td>
+              <td>10</td>
+              <td>凤九</td>
+              <td><img onclick="selectedModel(10)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/10.png" alt="凤九              "></td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>夜华</td>
+              <td><img onclick="selectedModel(11)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/11.png" alt="夜华              "></td>
+              <td>12</td>
+              <td>年年有余</td>
+              <td><img onclick="selectedModel(12)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/12.png" alt="年年有余          "></td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>新年萌萌哒</td>
+              <td><img onclick="selectedModel(13)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/13.png" alt="新年萌萌哒        "></td>
+              <td>14</td>
+              <td>王者荣耀荆轲</td>
+              <td><img onclick="selectedModel(14)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/14.png" alt="王者荣耀荆轲      "></td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>王者荣耀李白</td>
+              <td><img onclick="selectedModel(15)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/15.png" alt="王者荣耀李白      "></td>
+              <td>16</td>
+              <td>王者荣耀哪吒</td>
+              <td><img onclick="selectedModel(16)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/16.png" alt="王者荣耀哪吒      "></td>
+            </tr>
+            <tr>
+              <td>17</td>
+              <td>王者荣耀王昭君</td>
+              <td><img onclick="selectedModel(17)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/17.png" alt="王者荣耀王昭君    "></td>
+              <td>18</td>
+              <td>王者荣耀甄姬</td>
+              <td><img onclick="selectedModel(18)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/18.png" alt="王者荣耀甄姬      "></td>
+            </tr>
+            <tr>
+              <td>19</td>
+              <td>王者荣耀诸葛亮</td>
+              <td><img onclick="selectedModel(19)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/19.png" alt="王者荣耀诸葛亮    "></td>
+              <td>20</td>
+              <td>赵灵儿</td>
+              <td><img onclick="selectedModel(20)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/20.png" alt="赵灵儿            "></td>
+            </tr>
+            <tr>
+              <td>21</td>
+              <td>李逍遥</td>
+              <td><img onclick="selectedModel(21)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/21.png" alt="李逍遥            "></td>
+              <td>22</td>
+              <td>爆炸头</td>
+              <td><img onclick="selectedModel(22)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/22.png" alt="爆炸头            "></td>
+            </tr>
+            <tr>
+              <td>23</td>
+              <td>村姑</td>
+              <td><img onclick="selectedModel(23)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/23.png" alt="村姑              "></td>
+              <td>24</td>
+              <td>光头</td>
+              <td><img onclick="selectedModel(24)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/24.png" alt="光头              "></td>
+            </tr>
+            <tr>
+              <td>25</td>
+              <td>呵呵哒</td>
+              <td><img onclick="selectedModel(25)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/25.png" alt="呵呵哒            "></td>
+              <td>26</td>
+              <td>肌肉</td>
+              <td><img onclick="selectedModel(26)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/26.png" alt="肌肉              "></td>
+            </tr>
+            <tr>
+              <td>27</td>
+              <td>肉山</td>
+              <td><img onclick="selectedModel(27)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/27.png" alt="肉山              "></td>
+              <td>28</td>
+              <td>机智</td>
+              <td><img onclick="selectedModel(28)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/28.png" alt="机智              "></td>
+            </tr>
+            <tr>
+              <td>29</td>
+              <td>1927年军装（男）</td>
+              <td><img onclick="selectedModel(29)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/29.png" alt="1927年军装（男）" width="120" height="160"></td>
+              <td>30</td>
+              <td>1927年军装（女）</td>
+              <td><img onclick="selectedModel(30)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/30.png" alt="1927年军装（女）" width="120" height="160"></td>
+            </tr>
+            <tr>
+              <td>31</td>
+              <td>1929年军装（男）</td>
+              <td><img onclick="selectedModel(31)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/31.png" alt="1929年军装（男）" width="120" height="160"></td>
+              <td>32</td>
+              <td>1929年军装（女）</td>
+              <td><img onclick="selectedModel(32)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/32.png" alt="1929年军装（女）" width="120" height="160"></td>
+            </tr>
+            <tr>
+              <td>33</td>
+              <td>1937年军装（男）</td>
+              <td><img onclick="selectedModel(33)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/33.png" alt="1937年军装（男）" width="120" height="160"></td>
+              <td>34</td>
+              <td>1937年军装（女）</td>
+              <td><img onclick="selectedModel(34)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/34.png" alt="1937年军装（女）" width="120" height="160"></td>
+            </tr>
+            <tr>
+              <td>35</td>
+              <td>1948年军装（男）</td>
+              <td><img onclick="selectedModel(35)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/35.png" alt="1948年军装（男）" width="120" height="160"></td>
+              <td>36</td>
+              <td>1948年军装（女）</td>
+              <td><img onclick="selectedModel(36)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/36.png" alt="1948年军装（女）" width="120" height="160"></td>
+            </tr>
+            <tr>
+              <td>37</td>
+              <td>1950年军装（男）</td>
+              <td><img onclick="selectedModel(37)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/37.png" alt="1950年军装（男）" width="120" height="160"></td>
+              <td>38</td>
+              <td>1950年军装（女）</td>
+              <td><img onclick="selectedModel(38)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/38.png" alt="1950年军装（女）" width="120" height="160"></td>
+            </tr>
+            <tr>
+              <td>39</td>
+              <td>1955年军装（男）</td>
+              <td><img onclick="selectedModel(39)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/39.png" alt="1955年军装（男）" width="120" height="160"></td>
+              <td>40</td>
+              <td>1955年军装（女）</td>
+              <td><img onclick="selectedModel(40)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/40.png" alt="1955年军装（女）" width="120" height="160"></td>
+            </tr>
+            <tr>
+              <td>41</td>
+              <td>1965年军装（男)</td>
+              <td><img onclick="selectedModel(41)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/41.png" alt="1965年军装（男)" width="120" height="160"></td>
+              <td>42</td>
+              <td>1965年军装（女）</td>
+              <td><img onclick="selectedModel(42)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/42.png" alt="1965年军装（女）" width="120" height="160"></td>
+            </tr>
+            <tr>
+              <td>43</td>
+              <td>1985年军装（男）</td>
+              <td><img onclick="selectedModel(43)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/43.png" alt="1985年军装（男）" width="120" height="160"></td>
+              <td>44</td>
+              <td>1985年军装（女）</td>
+              <td><img onclick="selectedModel(44)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/44.png" alt="1985年军装（女）" width="120" height="160"></td>
+            </tr>
+            <tr>
+              <td>45</td>
+              <td>1987年军装（男）</td>
+              <td><img onclick="selectedModel(45)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/45.png" alt="1987年军装（男）" width="120" height="160"></td>
+              <td>46</td>
+              <td>1987年军装（女）</td>
+              <td><img onclick="selectedModel(46)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/46.png" alt="1987年军装（女）" width="120" height="160"></td>
+            </tr>
+            <tr>
+              <td>47</td>
+              <td>1999年军装（男）</td>
+              <td><img onclick="selectedModel(47)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/47.png" alt="1999年军装（男）" width="120" height="160"></td>
+              <td>48</td>
+              <td>1999年军装（女）</td>
+              <td><img onclick="selectedModel(48)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/48.png" alt="1999年军装（女）" width="120" height="160"></td>
+            </tr>
+            <tr>
+              <td>49</td>
+              <td>2007年军装（男）</td>
+              <td><img onclick="selectedModel(49)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/49.png" alt="2007年军装（男）" width="120" height="160"></td>
+              <td>50</td>
+              <td>2007年军装（女）</td>
+              <td><img onclick="selectedModel(50)" src="http://yyb.gtimg.com/aiplat/ai/upload/doc/facemerge/50.png" alt="2007年军装（女）" width="120" height="160"></td>
+            </tr>
+          </tbody>
+        </table> 
       </div>  
     </div>  
   </form>  
@@ -41,6 +260,18 @@
 
   <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js">
   </script>
+
+  <!-- /Users/Chendy/Desktop/Chendyiwhy.github.io/components -->
+  <!-- <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/components/core-min.js"></script> -->
+
+  <!-- <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script> -->
+  <!-- <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script> -->
+
+  <!-- <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/rollups/hmac-sha1.js"></script> -->
+  <!-- <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/rollups/hmac-sha256.js"></script> -->
+  <!-- <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/components/core-min.js"></script> -->
+  <!-- <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/components/enc-base64.js"></script> -->
+  <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/md5.js"></script>
   
   <script type="text/javascript">  
 
@@ -89,14 +320,16 @@
       });
     });*/
 
-    var base64_code=document.getElementById("base64_code");
+    var base64Img;
 
     function readURL(input) {
      if (input.files && input.files[0]) {
        var reader = new FileReader();
        reader.onload = function (e) {
          $('#blah').attr('src', e.target.result);
-         base64_code.innerHTML= e.target.result;
+         base64Img = this.result;
+         console.log(base64Img);
+
        }
        reader.readAsDataURL(input.files[0]);
      }
@@ -104,6 +337,188 @@
    $("#imgInp").change(function(){
      readURL(this);
    });
+
+   function copyText() {
+
+    requestData();
+  }
+// 图片上传
+function uploadImage(imageData,tag){
+  alert("123");
+    /*$.ajax({
+        url: '/api/upload',
+        data: {
+            imgData: imageData // 图片数据流
+        },
+        dataType: 'json',
+        type: 'post',
+        timeout: 10000,
+        success: function(data) {
+            if (data.status == 100 ) {
+                var img = '#image' + tag;
+                $(img).attr('src',data.imageUrl);
+            }else{
+                alert('图片上传失败!');
+            }
+        },
+        error: function(xhr, type, errorThrown) {
+            alert('网络异常，请稍后再试！');
+        }
+      });*/
+    };
+
+    function selectedModel(modelID) {
+        console.log("model selected :" + modelID);
+        requestQQFace(modelID)
+    }
+
+    function requestQQFace(modelID) {
+
+      var requestUrl = "https://api.ai.qq.com/fcgi-bin/ptu/ptu_facemerge";
+      var appId = 1106908730;
+      var appKey = "Oph1nDP4BYhhMOEG";
+      var timestamp = (new Date()).valueOf();
+      var noncestr = randomString(13);
+      var model = modelID;
+      var image = base64Img;
+      var sign = appSign1(appId, appKey, timestamp, noncestr, model, image);
+
+      $.ajax({
+        url: requestUrl,
+        data: {
+            app_id: appId ,// 图片数据流
+            time_stamp: timestamp,
+            nonce_str: noncestr,
+            model: model,
+            image: image,
+            sign: sign
+        },
+        dataType: 'json',
+        type: 'post',
+        timeout: 10000,
+        success: function(data) {
+            if (data.status == 100 ) {
+                // var img = '#image' + tag;
+                // $(img).attr('src',data.imageUrl);
+                console.log(data);
+                alert(data.ret);
+            } else {
+                alert('图片上传失败!');
+            }
+        },
+        error: function(xhr, type, errorThrown) {
+            alert('网络异常，请稍后再试！');
+        }
+      });
+
+    }
+/**
+ *对排序后的key值取值并生成
+ */
+function objKeySort(obj) {
+  //将obj中的所有key取出放入数组中,并按照ASCII排序 返回排序后的数组
+  var newKey = Object.keys(obj).sort();
+
+  var sortString = "";
+      //将obj转化为排序后的键值对使用'key=value&key=value'方式转为字符串
+
+  for (var i = 0; i < newKey.length; i++) {
+      
+      var value = encodeURIComponent(obj[newKey[i]]);
+      sortString = sortString + newKey[i] + "app_key=" + value + "&";
+  }
+  return sortString;
+}
+
+function appSign1(appId, appKey, timestamp, noncestr, model, image) {
+  // body...
+  var paramObj = new Object();
+  paramObj.app_id = appId;
+  paramObj.time_stamp = timestamp;
+  paramObj.nonce_str = noncestr;
+  paramObj.model = model;
+  paramObj.image = image;
+
+  var sort = objKeySort(paramObj)+"="+appKey;
+
+  //将排序好的字符串使用MD5签名,并返回大写字符串.toLocaleUpperCase()
+  var sign = hex_md5(sort).toLocaleUpperCase();
+  console.log("sign : " + sign);
+
+  return sign;
+}
+
+
+
+
+
+
+    function requestData() {
+
+      var requestUrl = "http://aiconsole.cloud.tencent.com/fuseapi/face";
+      var secretId = "AKIDkNrAM8N9RZWZQ7G1Z9kDWPBlBTnwHnZ9";
+      var secretKey = "b1Hm9NQHxRmz3whJzYv894oNo474uY1v";
+      var bucketName = "sport_jx";
+      var appId = 1256599434;
+      var expired = new Date().getTime() + 2592000;
+
+      appSign(appId, secretId, secretKey, bucketName, expired);
+
+    };
+
+    function appSign(appId, secretId, secretKey, bucketName, expired) {
+
+      var timestamp = Date.parse(new Date()); 
+      var now = new Date(timestamp) /1000;
+      var rdm = Math.abs(Math.random());
+      var real_time = now +expired;
+      /*var plainText = "a="+appId
+      +"&b="+bucketName
+      +"&k="+secretId
+      +"&t="+now
+      +"&e="+real_time
+      +"&r="+rdm;*/
+
+      var plainText = "a=1256599434&b=sport_jx&k=AKIDkNrAM8N9RZWZQ7G1Z9kDWPBlBTnwHnZ9&t=1526374700&e=1527903667303&r=1482898697";
+       // var hash = CryptoJS.HmacSHA1(plainText, secretKey);
+
+       //var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, "Secret Passphrase");
+
+      // var CryptoJS = require("crypto-js");
+      // CryptoJS.HmacSHA1(plainText, secretKey);
+
+      var hash = HMAC_SHA1.bytes(plainText, secretKey);
+
+      /*var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA1, secretKey);
+
+      hmac.update(plainText);
+      var hash = hmac.finalize();*/
+
+      //var hash = CryptoJS.HmacSHA1(plainText, secretKey);
+
+
+
+      var signContent = hash+plainText;
+      //var base64_encode = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(signContent));//第一个参数为加密字符串，第二个参数为公共秘钥
+
+      console.log("params :" + hash);
+
+      //console.log("appSign :" + base64_encode );
+
+    };
+
+    function randomString(len) {
+      　　len = len || 32;
+          /***默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+      　　var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';   
+      　　var maxPos = $chars.length;
+      　　var pwd = '';
+      　　for (i = 0; i < len; i++) {
+        　　　　pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+      　　}
+      　　return pwd;
+    }
+
 
   </script>  
 </body>  
