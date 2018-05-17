@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>  
 <html>  
 <head>  
-  <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery
-/jquery-1.4.min.js"></script>
+  <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+  <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
   <title>上传图片</title>  
   <meta charset="utf-8">
   <style type="text/css">
@@ -254,70 +254,10 @@
       </div>  
     </div>  
   </form>  
-  <div data-role="fieldcontain">  
-    <div id="localImag">  
-      <img id="preview" width="-1" height="-1" style="display: none" />  
-    </div>  
-  </div>  
 
-  <!-- /Users/Chendy/Desktop/Chendyiwhy.github.io/components -->
-  <!-- <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/components/core-min.js"></script> -->
-
-  <!-- <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script> -->
-  <!-- <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script> -->
-
-  <!-- <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/rollups/hmac-sha1.js"></script> -->
-  <!-- <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/rollups/hmac-sha256.js"></script> -->
-  <!-- <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/components/core-min.js"></script> -->
-  <!-- <script src="/Users/Chendy/Desktop/Chendyiwhy.github.io/components/enc-base64.js"></script> -->
   <script src="js/md5.js"></script>
   
   <script type="text/javascript">  
-
-    /*function setImagePreview() {  
-      var preview, img_txt, localImag, file_head = document.getElementById("file_head"),  
-      picture = file_head.value;  
-      if (!picture.match(/.jpg|.gif|.png|.bmp/i)) return alert("您上传的图片格式不正确，请重新选择！"),  
-        !1;  
-      if (preview = document.getElementById("preview"), file_head.files && file_head.files[0]) preview.style.display = "block",  
-        preview.style.width = "63px",  
-      preview.style.height = "63px",  
-      preview.src = window.navigator.userAgent.indexOf("Chrome") >= 1 || window.navigator.userAgent.indexOf("Safari") >= 1 ? window.webkitURL.createObjectURL(file_head.files[0]) : window.URL.createObjectURL(file_head.files[0]);  
-      else {  
-        file_head.select(),  
-        file_head.blur(),  
-        img_txt = document.selection.createRange().text,  
-        localImag = document.getElementById("localImag"),  
-        localImag.style.width = "63px",  
-        localImag.style.height = "63px";  
-        try {  
-          localImag.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)",  
-          localImag.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = img_txt  
-        } catch(f) {  
-          return alert("您上传的图片格式不正确，请重新选择！"),  
-          !1  
-        }  
-        preview.style.display = "none",  
-        document.selection.empty()  
-      }  
-      return document.getElementById("DivUp").style.display = "block",  
-      !0  
-    }  
-
-    $(document).ready(function(){
-      $("button").click(function(){
-
-
-        $.post("http://aiconsole.cloud.tencent.com/fuseapi/face",{
-          name:"菜鸟教程",
-          url:"http://www.runoob.com"
-        },
-        function(data,status){
-          alert("数据: \n" + data + "\n状态: " + status);
-          console.i(data);
-        });
-      });
-    });*/
 
     var base64Img;
 
@@ -337,178 +277,70 @@
      readURL(this);
    });
 
-   function copyText() {
 
-    requestData();
-  }
-// 图片上传
-function uploadImage(imageData,tag){
-  alert("123");
-    /*$.ajax({
-        url: '/api/upload',
-        data: {
-            imgData: imageData // 图片数据流
-        },
-        dataType: 'json',
-        type: 'post',
-        timeout: 10000,
-        success: function(data) {
-            if (data.status == 100 ) {
-                var img = '#image' + tag;
-                $(img).attr('src',data.imageUrl);
-            }else{
-                alert('图片上传失败!');
-            }
-        },
-        error: function(xhr, type, errorThrown) {
-            alert('网络异常，请稍后再试！');
-        }
-      });*/
-    };
+   function selectedModel(modelID) {
+    console.log("model selected :" + modelID);
 
-    function selectedModel(modelID) {
-        console.log("model selected :" + modelID);
-        requestQQFace(modelID)
-    }
-
-    function requestQQFace(modelID) {
-
-      var requestUrl = "https://api.ai.qq.com/fcgi-bin/ptu/ptu_facemerge";
-      var appId = 1106908730;
-      var appKey = "Oph1nDP4BYhhMOEG";
-      var timestamp = (new Date()).valueOf();
-      var noncestr = randomString(13);
-      var model = modelID;
-      var image = base64Img;
-      var sign = appSign1(appId, appKey, timestamp, noncestr, model, image);
+    var requestUrl = "http://127.0.0.1:8000/api/marge/";
+      //var requestUrl = "http://127.0.0.1:8080/face";
 
       $.ajax({
         url: requestUrl,
         data: {
-            app_id: appId ,// 图片数据流
-            time_stamp: timestamp,
-            nonce_str: noncestr,
-            model: model,
-            image: image,
-            sign: sign
+          'model': modelID,
+          'img': base64Img
         },
         dataType: 'json',
         type: 'post',
-        timeout: 10000,
+        timeout: 20000,
         success: function(data) {
-            if (data.status == 100 ) {
-                // var img = '#image' + tag;
-                // $(img).attr('src',data.imageUrl);
-                console.log(data);
-                alert(data.ret);
-            } else {
-                alert('图片上传失败!');
-            }
+          if (data.ret == 0) {
+            var img_str = "data:image/jpeg;base64,"+data.data.image;
+            $('#face').attr('src', img_str);
+
+          } else {
+            alert('图片上传失败!');
+          }
+          console.log(data);
         },
         error: function(xhr, type, errorThrown) {
-            alert('网络异常，请稍后再试！');
+          console.log(errorThrown);
         }
       });
 
+      /*$.ajax({
+        url: requestUrl,
+        data: {
+            'model': '2',
+            'img': 'base64Img'
+        },
+        dataType: 'jsonp',
+        jsonp: "callback",
+        processData: false,
+        type: 'post',
+        timeout: 20000,
+        success: function(data) {
+            if (data.ret == 0) {
+              var img_str = "data:image/jpeg;base64,"+data.data.image;
+              $('#face').attr('src', img_str);
+
+            } else {
+              alert('图片上传失败!');
+            }
+            console.log(data);
+        },
+        error: function(xhr, type, errorThrown) {
+          console.log(errorThrown);
+        }
+      });*/
+
     }
-/**
- *对排序后的key值取值并生成
- */
-function objKeySort(obj) {
-  //将obj中的所有key取出放入数组中,并按照ASCII排序 返回排序后的数组
-  var newKey = Object.keys(obj).sort();
-
-  var sortString = "";
-      //将obj转化为排序后的键值对使用'key=value&key=value'方式转为字符串
-
-  for (var i = 0; i < newKey.length; i++) {
-      
-      var value = encodeURIComponent(obj[newKey[i]]);
-      sortString = sortString + newKey[i] + "app_key=" + value + "&";
-  }
-  return sortString;
-}
-
-function appSign1(appId, appKey, timestamp, noncestr, model, image) {
-  // body...
-  var paramObj = new Object();
-  paramObj.app_id = appId;
-  paramObj.time_stamp = timestamp;
-  paramObj.nonce_str = noncestr;
-  paramObj.model = model;
-  paramObj.image = image;
-
-  var sort = objKeySort(paramObj)+"="+appKey;
-
-  //将排序好的字符串使用MD5签名,并返回大写字符串.toLocaleUpperCase()
-  var sign = hex_md5(sort).toLocaleUpperCase();
-  console.log("sign : " + sign);
-
-  return sign;
-}
 
 
-
-
-
-
-    function requestData() {
-
-      var requestUrl = "http://aiconsole.cloud.tencent.com/fuseapi/face";
-      var secretId = "AKIDkNrAM8N9RZWZQ7G1Z9kDWPBlBTnwHnZ9";
-      var secretKey = "b1Hm9NQHxRmz3whJzYv894oNo474uY1v";
-      var bucketName = "sport_jx";
-      var appId = 1256599434;
-      var expired = new Date().getTime() + 2592000;
-
-      appSign(appId, secretId, secretKey, bucketName, expired);
-
-    };
-
-    function appSign(appId, secretId, secretKey, bucketName, expired) {
-
-      var timestamp = Date.parse(new Date()); 
-      var now = new Date(timestamp) /1000;
-      var rdm = Math.abs(Math.random());
-      var real_time = now +expired;
-      /*var plainText = "a="+appId
-      +"&b="+bucketName
-      +"&k="+secretId
-      +"&t="+now
-      +"&e="+real_time
-      +"&r="+rdm;*/
-
-      var plainText = "a=1256599434&b=sport_jx&k=AKIDkNrAM8N9RZWZQ7G1Z9kDWPBlBTnwHnZ9&t=1526374700&e=1527903667303&r=1482898697";
-       // var hash = CryptoJS.HmacSHA1(plainText, secretKey);
-
-       //var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, "Secret Passphrase");
-
-      // var CryptoJS = require("crypto-js");
-      // CryptoJS.HmacSHA1(plainText, secretKey);
-
-      var hash = HMAC_SHA1.bytes(plainText, secretKey);
-
-      /*var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA1, secretKey);
-
-      hmac.update(plainText);
-      var hash = hmac.finalize();*/
-
-      //var hash = CryptoJS.HmacSHA1(plainText, secretKey);
-
-
-
-      var signContent = hash+plainText;
-      //var base64_encode = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(signContent));//第一个参数为加密字符串，第二个参数为公共秘钥
-
-      console.log("params :" + hash);
-
-      //console.log("appSign :" + base64_encode );
-
-    };
 
     function randomString(len) {
       　　len = len || 32;
-          /***默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+      /***默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
       　　var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';   
       　　var maxPos = $chars.length;
       　　var pwd = '';
